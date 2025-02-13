@@ -1,147 +1,439 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio de l'Artiste</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio d'Art Sophistiqué</title>
+  <!-- Importation de Google Fonts pour une typographie élégante -->
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Montserrat:400,700&display=swap" rel="stylesheet">
+  <style>
+    /* Variables et réinitialisation */
+    :root {
+      --primary-color: #000;
+      --secondary-color: #fff;
+      --accent-color: #D4AF37; /* touche dorée */
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--secondary-color);
+      color: var(--primary-color);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    /* ---------- Header ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 80px 40px; /* Bannière initiale plus grande */
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      transition: padding 0.3s ease, background 0.3s ease;
+      z-index: 1000;
+    }
+    /* Réduction du header lorsqu'on scrolle */
+    header.small {
+      padding: 40px 40px; /* Bannière plus petite */
+    }
+    /* Conteneur du logo : centré initialement */
+    .logo-container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: left 0.3s ease, transform 0.3s ease;
+    }
+    /* Au scroll, le logo se déplace vers la gauche */
+    header.small .logo-container {
+      left: 40px;
+      transform: translate(0, -50%);
+    }
+    /* Le logo en lui-même */
+    header img.logo {
+      width: 250px; /* Logo plus grand à l'état initial */
+      transition: width 0.3s ease;
+    }
+    header.small img.logo {
+      width: 100px;
+    }
+    /* Conteneur de navigation : masqué initialement */
+    .nav-container {
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    /* Au scroll, le menu devient visible */
+    header.small .nav-container {
+      opacity: 1;
+    }
+    .nav-container nav a {
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 1rem;
+      color: var(--primary-color);
+      transition: color 0.3s, border-bottom 0.3s;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-container nav a:hover {
+      color: var(--accent-color);
+      border-bottom: 2px solid var(--accent-color);
+    }
+    /* ---------- Section Héro ---------- */
+    .hero {
+      position: relative;
+      height: 100vh;
+      background: url('Reflets Urbains.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .hero-content {
+      position: relative;
+      text-align: center;
+      color: var(--secondary-color);
+      padding: 0 20px;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    /* ---------- Section Slider ---------- */
+    .slider {
+      overflow: hidden;
+      background: #f0f0f0;
+      padding: 20px 0;
+    }
+    .slider-track {
+      display: flex;
+      width: calc(200%); /* Double largeur pour défilement continu */
+      animation: scrollSlider 30s linear infinite;
+      animation-direction: reverse;
+    }
+    .slider-track img {
+      height: 150px;
+      margin: 0 20px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    @keyframes scrollSlider {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    /* ---------- Section Galerie ---------- */
+    section.gallery {
+      padding: 80px 40px;
+      column-count: 1;
+      column-gap: 20px;
+    }
+    @media (min-width: 600px) {
+      section.gallery { column-count: 2; }
+    }
+    @media (min-width: 900px) {
+      section.gallery { column-count: 3; }
+    }
+    @media (min-width: 1200px) {
+      section.gallery { column-count: 4; }
+    }
+    .gallery-item {
+      margin-bottom: 20px;
+      break-inside: avoid;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    .gallery-item .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      background: rgba(0,0,0,0.6);
+      color: var(--secondary-color);
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover .caption {
+      opacity: 1;
+    }
+    /* ---------- Footer ---------- */
+    footer {
+      padding: 40px;
+      text-align: center;
+      background: var(--primary-color);
+      color: var(--secondary-color);
+      font-size: 0.9rem;
+    }
+    /* ---------- Animation des éléments en scroll ---------- */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+    }
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <img src="Logo.png" alt="Logo de l'artiste" style="width: 200px; height: auto;">
-        <nav>
-            <a href="#home">Accueil</a>
-            <a href="#about">À propos</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
-    
-    
+  <!-- Header avec logo et navigation -->
+  <header>
+    <div class="logo-container">
+      <img src="Logo.png" alt="Logo" class="logo">
+    </div>
+    <div class="nav-container">
+      <nav>
+        <a href="#hero">Accueil</a>
+        <a href="#slider">Slider</a>
+        <a href="#gallery">Galerie</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Section Héro -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1>Portfolio de Pascaline Riffont</h1>
+      <p>Une exploration visuelle où chaque image raconte une histoire, inspirée par l'excellence de l'art contemporain.</p>
+    </div>
+  </section>
+  
+  <!-- Section Slider -->
+  <section class="slider" id="slider">
+    <div class="slider-track">
+      <img src="Chuchotements Nocturnes.jfif" alt="Chuchotements Nocturnes" class="fade-in-up">
+      <img src="Explosion Automnale.jfif" alt="Explosion Automnale" class="fade-in-up">
+      <img src="Jardin Sauvage.jfif" alt="Jardin Sauvage" class="fade-in-up">
+      <img src="Repos en Forêt.jfif" alt="Repos en Forêt" class="fade-in-up">
+      <img src="Silhouette en Contemplation 3.jfif" alt="Silhouette en Contemplation 3" class="fade-in-up">
+      <img src="Dialogue Visuel.jpg" alt="Dialogue Visuel" class="fade-in-up">
+      <img src="Silhouettes et Séquences.jpg" alt="Silhouettes et Séquences" class="fade-in-up">
+      <!-- Répétition pour continuité fluide -->
+      <img src="Chuchotements Nocturnes.jfif" alt="Chuchotements Nocturnes" class="fade-in-up">
+      <img src="Explosion Automnale.jfif" alt="Explosion Automnale" class="fade-in-up">
+      <img src="Jardin Sauvage.jfif" alt="Jardin Sauvage" class="fade-in-up">
+      <img src="Repos en Forêt.jfif" alt="Repos en Forêt" class="fade-in-up">
+      <img src="Silhouette en Contemplation 3.jfif" alt="Silhouette en Contemplation 3" class="fade-in-up">
+      <img src="Dialogue Visuel.jpg" alt="Dialogue Visuel" class="fade-in-up">
+      <img src="Silhouettes et Séquences.jpg" alt="Silhouettes et Séquences" class="fade-in-up">
+    </div>
+  </section>
+  
+  <!-- Section Galerie -->
+  <section class="gallery" id="gallery">
+    <!-- Remarque : Reflets Urbains.jpg est utilisé en héro, il est donc exclu ici -->
+    <div class="gallery-item">
+      <img src="Elégance en Mouvement.jpg" alt="Elégance en Mouvement" class="fade-in-up">
+      <div class="caption">Elégance en Mouvement</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Chuchotements Nocturnes.jfif" alt="Chuchotements Nocturnes" class="fade-in-up">
+      <div class="caption">Chuchotements Nocturnes</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Explosion Automnale.jfif" alt="Explosion Automnale" class="fade-in-up">
+      <div class="caption">Explosion Automnale</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Reflets Urbains.jpg" alt="Reflets Urbains" class="fade-in-up">
+      <div class="caption">Reflets Urbains</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Jardin Sauvage.jfif" alt="Jardin Sauvage" class="fade-in-up">
+      <div class="caption">Jardin Sauvage</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Repos en Forêt.jfif" alt="Repos en Forêt" class="fade-in-up">
+      <div class="caption">Repos en Forêt</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Silhouette en Contemplation 3.jfif" alt="Silhouette en Contemplation 3" class="fade-in-up">
+      <div class="caption">Silhouette en Contemplation 3</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Dialogue Visuel.jpg" alt="Dialogue Visuel" class="fade-in-up">
+      <div class="caption">Dialogue Visuel</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Silhouettes et Séquences.jpg" alt="Silhouettes et Séquences" class="fade-in-up">
+      <div class="caption">Silhouettes et Séquences</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Clair de Forêt.jfif" alt="Clair de Forêt" class="fade-in-up">
+      <div class="caption">Clair de Forêt</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Fenêtre sur l_Océan.jfif" alt="Fenêtre sur l'Océan" class="fade-in-up">
+      <div class="caption">Fenêtre sur l'Océan</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Le Chat.jfif" alt="Le Chat" class="fade-in-up">
+      <div class="caption">Le Chat</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Résonance Abstraite.jfif" alt="Résonance Abstraite" class="fade-in-up">
+      <div class="caption">Résonance Abstraite</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Silhouette en Contemplation 4.jfif" alt="Silhouette en Contemplation 4" class="fade-in-up">
+      <div class="caption">Silhouette en Contemplation 4</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Danse des Couleurs.jfif" alt="Danse des Couleurs" class="fade-in-up">
+      <div class="caption">Danse des Couleurs</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Festival Floral.jfif" alt="Festival Floral" class="fade-in-up">
+      <div class="caption">Festival Floral</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Méditation au Rivage.jfif" alt="Méditation au Rivage" class="fade-in-up">
+      <div class="caption">Méditation au Rivage</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Rêverie au Crépuscule.jfif" alt="Rêverie au Crépuscule" class="fade-in-up">
+      <div class="caption">Rêverie au Crépuscule</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Solitude Verdoyante.jfif" alt="Solitude Verdoyante" class="fade-in-up">
+      <div class="caption">Solitude Verdoyante</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Harmonie Graphique.jpg" alt="Harmonie Graphique" class="fade-in-up">
+      <div class="caption">Harmonie Graphique</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Triptyque Typographique.jpg" alt="Triptyque Typographique" class="fade-in-up">
+      <div class="caption">Triptyque Typographique</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Éclat d_Automne.jfif" alt="Éclat d'Automne" class="fade-in-up">
+      <div class="caption">Éclat d'Automne</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Harmonie en Feuillage.jfif" alt="Harmonie en Feuillage" class="fade-in-up">
+      <div class="caption">Harmonie en Feuillage</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Mosaïque de la Nature.jfif" alt="Mosaïque de la Nature" class="fade-in-up">
+      <div class="caption">Mosaïque de la Nature</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Symphonie Circulaire.jpg" alt="Symphonie Circulaire" class="fade-in-up">
+      <div class="caption">Symphonie Circulaire</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Brise Printanière.jfif" alt="Brise Printanière" class="fade-in-up">
+      <div class="caption">Brise Printanière</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Éclat Floral.jfif" alt="Éclat Floral" class="fade-in-up">
+      <div class="caption">Éclat Floral</div>
+    </div>
+    <div class="gallery-item">
+      <img src="image.jfif" alt="Image" class="fade-in-up">
+      <div class="caption">Image</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Pont Vers la Sérénité.jfif" alt="Pont Vers la Sérénité" class="fade-in-up">
+      <div class="caption">Pont Vers la Sérénité</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Silhouette en Contemplation 1.jfif" alt="Silhouette en Contemplation 1" class="fade-in-up">
+      <div class="caption">Silhouette en Contemplation 1</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Carnaval Floral.jfif" alt="Carnaval Floral" class="fade-in-up">
+      <div class="caption">Carnaval Floral</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Été Tranquille.jfif" alt="Été Tranquille" class="fade-in-up">
+      <div class="caption">Été Tranquille</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Jardin Aquarelle.jfif" alt="Jardin Aquarelle" class="fade-in-up">
+      <div class="caption">Jardin Aquarelle</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Silhouette en Contemplation 2.jfif" alt="Silhouette en Contemplation 2" class="fade-in-up">
+      <div class="caption">Silhouette en Contemplation 2</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Triptyque des Marées.jfif" alt="Triptyque des Marées" class="fade-in-up">
+      <div class="caption">Triptyque des Marées</div>
+    </div>
+    <div class="gallery-item">
+      <img src="Rythmes et Cercles.jpg" alt="Rythmes et Cercles" class="fade-in-up">
+      <div class="caption">Rythmes et Cercles</div>
+    </div>
+  </section>
+  
+  <!-- Footer avec coordonnées -->
+  <footer id="contact">
+    <p>&copy; 2025 Pascaline Riffont. Tous droits réservés.</p>
+    <p>Contact : pascalineriffont@gmail.com</p>
+  </footer>
 
-    <section class="main" id="home">
-        <div class="gallery" id="galleryContainer">
-            <!-- Les images seront ajoutées ici par JavaScript -->
-        </div>
-    </section>
-    
-    
-    <section class="main" id="about">
-        <h2>À propos de moi</h2>
-        <img src="Mama.jpg" alt="Image de présentation" class="small-image">
-        <p>Une artiste exceptionnelle et une merveilleuse maman !</p>
-    </section>
-    
-    
-
-    <section class="main" id="contact">
-        <h2>Contact</h2>
-        <p>Informations de contact.</p>
-        <a href="https://www.facebook.com/pascalepitche.riffont" target="_blank">
-            <img src="Facebook.png" alt="Logo Facebook" class="small-facebook-logo">
-        </a>
-    </section>
-    
-    
-
-    <footer class="footer">
-        <p>© 2024 Maxime Callewaert </p>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const gallery = document.getElementById('galleryContainer');
-            const imageNames = [
-            "Reflets Urbains.jpg",
-            "Elégance en Mouvement.jpg",
-            "Rythmes et Cercles.jpg",
-            "Silhouettes et Séquences.jpg",
-            "Harmonie Graphique.jpg",
-            "Triptyque Typographique.jpg",
-            "Dialogue Visuel.jpg",
-            "Repos en Forêt.jfif",
-            "Résonance Abstraite.jfif",
-            "Sérénité Cascade.jfif",
-            "Festival Floral.jfif",
-            "Triptyque des Marées.jfif",
-            "Jardin Sauvage.jfif",
-            "Éclat d'Automne.jfif",
-            "Brise Printanière.jfif",
-            "Chuchotements Nocturnes.jfif",
-            "Symphonie en Turquoise et Vert.jfif",
-            "Silhouette en Contemplation 4.jfif",
-            "Silhouette en Contemplation 3.jfif",
-            "Silhouette en Contemplation 2.jfif",
-            "Silhouette en Contemplation 1.jfif",
-            "Ballet Aquatique.jfif",
-            "Été Tranquille.jfif",
-            "Méditation au Rivage.jfif",
-            "Harmonie en Feuillage.jfif",
-            "Carnaval Floral.jfif",
-            "Danse des Couleurs.jfif",
-            "Fenêtre sur l'Océan.jfif",
-            "Rêverie au Crépuscule.jfif",
-            "Brise Marine et Nuages.jfif",
-            "Reflets du Crépuscule.jfif",
-            "Clair de Forêt.jfif",
-            "Mosaïque de la Nature.jfif",
-            "Bouquet d'Automne.jfif",
-            "Pont Vers la Sérénité.jfif",
-            "Explosion Automnale.jfif",
-            "Jardin Aquarelle.jfif",
-            "Éclat Floral.jfif",
-            "Solitude Verdoyante.jfif",
-            "Symphonie Circulaire.jpg"
-        ];
-
-
-
-            
-            let html = '';
-        
-            imageNames.forEach((imageName, index) => {
-                // Supprimer l'extension .jfif
-                const nameWithoutExtension = imageName.replace(/\.jfif$|\.jpg$/i, '');
-
-                html += `
-                    <div class="photo">
-                        <img src="${imageName}" alt="Œuvre ${index + 1}">
-                        <p>${nameWithoutExtension}</p>
-                        <p><span class="sold">Vendue</span></p>
-                    </div>
-                `;
-            });
-        
-            gallery.innerHTML = html;
+  <!-- Scripts -->
+  <script>
+    // Intersection Observer pour les animations des éléments en scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const faders = document.querySelectorAll('.fade-in-up');
+      const options = { threshold: 0.1 };
+      const appearOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
         });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Sélectionnez tous les liens de navigation dans l'en-tête
-            const navLinks = document.querySelectorAll('header nav a');
-    
-            // Ajoutez un écouteur d'événements à chaque lien
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    // Empêchez le comportement par défaut du lien (le défilement immédiat)
-                    event.preventDefault();
-    
-                    // Récupérez l'ID de la section cible à partir de l'attribut href du lien
-                    const targetId = this.getAttribute('href').substring(1);
-    
-                    // Récupérez la section cible en fonction de son ID
-                    const targetSection = document.getElementById(targetId);
-    
-                    // Faites défiler la page jusqu'à la section cible avec une animation fluide
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        });
-    </script>
-    
-    
-    
-    
+      }, options);
+      faders.forEach(fader => appearOnScroll.observe(fader));
+    });
+
+    // Gestion de la transition du header lors du scroll
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.pageYOffset > 50) {
+        header.classList.add('small');
+      } else {
+        header.classList.remove('small');
+      }
+    });
+  </script>
 </body>
 </html>
