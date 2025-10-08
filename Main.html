@@ -13,11 +13,7 @@
       --secondary-color: #fff;
       --accent-color: #D4AF37; /* touche dorée */
     }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Montserrat', sans-serif;
       background: var(--secondary-color);
@@ -27,185 +23,71 @@
     }
     /* ---------- Header ---------- */
     header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      position: fixed; top: 0; left: 0; right: 0;
       padding: 80px 40px; /* Bannière initiale plus grande */
       background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(10px);
       transition: padding 0.3s ease, background 0.3s ease;
       z-index: 1000;
     }
-    /* Réduction du header lorsqu'on scrolle */
-    header.small {
-      padding: 40px 40px; /* Bannière plus petite */
-    }
-    /* Conteneur du logo : centré initialement */
+    header.small { padding: 40px 40px; }
     .logo-container {
-      position: absolute;
-      left: 50%;
-      top: 50%;
+      position: absolute; left: 50%; top: 50%;
       transform: translate(-50%, -50%);
       transition: left 0.3s ease, transform 0.3s ease;
     }
-    /* Au scroll, le logo se déplace vers la gauche */
-    header.small .logo-container {
-      left: 40px;
-      transform: translate(0, -50%);
-    }
-    /* Le logo en lui-même */
-    header img.logo {
-      width: 250px; /* Logo plus grand à l'état initial */
-      transition: width 0.3s ease;
-    }
-    header.small img.logo {
-      width: 100px;
-    }
-    /* Conteneur de navigation : masqué initialement */
+    header.small .logo-container { left: 40px; transform: translate(0, -50%); }
+    header img.logo { width: 250px; transition: width 0.3s ease; }
+    header.small img.logo { width: 100px; }
     .nav-container {
-      position: absolute;
-      right: 40px;
-      top: 50%;
-      transform: translateY(-50%);
-      opacity: 0;
-      transition: opacity 0.5s ease;
+      position: absolute; right: 40px; top: 50%;
+      transform: translateY(-50%); opacity: 0; transition: opacity 0.5s ease;
     }
-    /* Au scroll, le menu devient visible */
-    header.small .nav-container {
-      opacity: 1;
-    }
+    header.small .nav-container { opacity: 1; }
     .nav-container nav a {
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 1rem;
-      color: var(--primary-color);
-      transition: color 0.3s, border-bottom 0.3s;
-      border-bottom: 2px solid transparent;
+      text-decoration: none; margin-left: 20px; font-size: 1rem; color: var(--primary-color);
+      transition: color 0.3s, border-bottom 0.3s; border-bottom: 2px solid transparent;
     }
-    .nav-container nav a:hover {
-      color: var(--accent-color);
-      border-bottom: 2px solid var(--accent-color);
-    }
+    .nav-container nav a:hover { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
     /* ---------- Section Héro ---------- */
     .hero {
-      position: relative;
-      height: 100vh;
+      position: relative; height: 100vh;
       background: url('Reflets Urbains.jpg') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     }
     .hero::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.4);
+      content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4);
     }
-    .hero-content {
-      position: relative;
-      text-align: center;
-      color: var(--secondary-color);
-      padding: 0 20px;
-    }
-    .hero-content h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
-    .hero-content p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+    .hero-content { position: relative; text-align: center; color: var(--secondary-color); padding: 0 20px; }
+    .hero-content h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 20px; }
+    .hero-content p { font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
     /* ---------- Section Slider ---------- */
-    .slider {
-      overflow: hidden;
-      background: #f0f0f0;
-      padding: 20px 0;
-    }
+    .slider { overflow: hidden; background: #f0f0f0; padding: 20px 0; }
     .slider-track {
-      display: flex;
-      width: calc(200%); /* Double largeur pour défilement continu */
-      animation: scrollSlider 30s linear infinite;
-      animation-direction: reverse;
+      display: flex; width: calc(200%); /* Double largeur pour défilement continu */
+      animation: scrollSlider 30s linear infinite; animation-direction: reverse;
     }
-    .slider-track img {
-      height: 150px;
-      margin: 0 20px;
-      border-radius: 8px;
-      object-fit: cover;
-    }
-    @keyframes scrollSlider {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+    .slider-track img { height: 150px; margin: 0 20px; border-radius: 8px; object-fit: cover; }
+    @keyframes scrollSlider { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     /* ---------- Section Galerie ---------- */
-    section.gallery {
-      padding: 80px 40px;
-      column-count: 1;
-      column-gap: 20px;
-    }
-    @media (min-width: 600px) {
-      section.gallery { column-count: 2; }
-    }
-    @media (min-width: 900px) {
-      section.gallery { column-count: 3; }
-    }
-    @media (min-width: 1200px) {
-      section.gallery { column-count: 4; }
-    }
-    .gallery-item {
-      margin-bottom: 20px;
-      break-inside: avoid;
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-    }
-    .gallery-item img {
-      width: 100%;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-    .gallery-item:hover img {
-      transform: scale(1.05);
-    }
+    section.gallery { padding: 80px 40px; column-count: 1; column-gap: 20px; }
+    @media (min-width: 600px) { section.gallery { column-count: 2; } }
+    @media (min-width: 900px) { section.gallery { column-count: 3; } }
+    @media (min-width: 1200px) { section.gallery { column-count: 4; } }
+    .gallery-item { margin-bottom: 20px; break-inside: avoid; position: relative; overflow: hidden; border-radius: 8px; }
+    .gallery-item img { width: 100%; display: block; transition: transform 0.3s ease; }
+    .gallery-item:hover img { transform: scale(1.05); }
     .gallery-item .caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 10px;
-      background: rgba(0,0,0,0.6);
-      color: var(--secondary-color);
-      font-size: 1rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 10px;
+      background: rgba(0,0,0,0.6); color: var(--secondary-color); font-size: 1rem;
+      opacity: 0; transition: opacity 0.3s ease;
     }
-    .gallery-item:hover .caption {
-      opacity: 1;
-    }
+    .gallery-item:hover .caption { opacity: 1; }
     /* ---------- Footer ---------- */
-    footer {
-      padding: 40px;
-      text-align: center;
-      background: var(--primary-color);
-      color: var(--secondary-color);
-      font-size: 0.9rem;
-    }
+    footer { padding: 40px; text-align: center; background: var(--primary-color); color: var(--secondary-color); font-size: 0.9rem; }
     /* ---------- Animation des éléments en scroll ---------- */
-    .fade-in-up {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1.5s ease-out, transform 1.5s ease-out;
-    }
-    .fade-in-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-in-up { opacity: 0; transform: translateY(20px); transition: opacity 1.5s ease-out, transform 1.5s ease-out; }
+    .fade-in-up.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
@@ -242,6 +124,11 @@
       <img src="Silhouette en Contemplation 3.jfif" alt="Silhouette en Contemplation 3" class="fade-in-up">
       <img src="Dialogue Visuel.jpg" alt="Dialogue Visuel" class="fade-in-up">
       <img src="Silhouettes et Séquences.jpg" alt="Silhouettes et Séquences" class="fade-in-up">
+      <!-- AJOUT : nouveaux tableaux dans le slider -->
+      <img src="Visage en pièces.jfif" alt="Visage en pièces" class="fade-in-up"><!-- AJOUT -->
+      <img src="Brise sur le balcon.jfif" alt="Brise sur le balcon" class="fade-in-up"><!-- AJOUT -->
+      <img src="Matin urbain.jfif" alt="Matin urbain" class="fade-in-up"><!-- AJOUT -->
+      <img src="À la volée.jfif" alt="À la volée" class="fade-in-up"><!-- AJOUT -->
       <!-- Répétition pour continuité fluide -->
       <img src="Chuchotements Nocturnes.jfif" alt="Chuchotements Nocturnes" class="fade-in-up">
       <img src="Explosion Automnale.jfif" alt="Explosion Automnale" class="fade-in-up">
@@ -250,6 +137,11 @@
       <img src="Silhouette en Contemplation 3.jfif" alt="Silhouette en Contemplation 3" class="fade-in-up">
       <img src="Dialogue Visuel.jpg" alt="Dialogue Visuel" class="fade-in-up">
       <img src="Silhouettes et Séquences.jpg" alt="Silhouettes et Séquences" class="fade-in-up">
+      <!-- AJOUT : répétition des nouveaux tableaux pour le défilement continu -->
+      <img src="Visage en pièces.jfif" alt="Visage en pièces" class="fade-in-up"><!-- AJOUT -->
+      <img src="Brise sur le balcon.jfif" alt="Brise sur le balcon" class="fade-in-up"><!-- AJOUT -->
+      <img src="Matin urbain.jfif" alt="Matin urbain" class="fade-in-up"><!-- AJOUT -->
+      <img src="À la volée.jfif" alt="À la volée" class="fade-in-up"><!-- AJOUT -->
     </div>
   </section>
   
@@ -400,6 +292,24 @@
       <img src="Rythmes et Cercles.jpg" alt="Rythmes et Cercles" class="fade-in-up">
       <div class="caption">Rythmes et Cercles</div>
     </div>
+
+    <!-- AJOUT : nouveaux tableaux dans la galerie -->
+    <div class="gallery-item"><!-- AJOUT -->
+      <img src="Visage en pièces.jfif" alt="Visage en pièces" class="fade-in-up"><!-- AJOUT -->
+      <div class="caption">Visage en pièces</div><!-- AJOUT -->
+    </div><!-- AJOUT -->
+    <div class="gallery-item"><!-- AJOUT -->
+      <img src="Brise sur le balcon.jfif" alt="Brise sur le balcon" class="fade-in-up"><!-- AJOUT -->
+      <div class="caption">Brise sur le balcon</div><!-- AJOUT -->
+    </div><!-- AJOUT -->
+    <div class="gallery-item"><!-- AJOUT -->
+      <img src="Matin urbain.jfif" alt="Matin urbain" class="fade-in-up"><!-- AJOUT -->
+      <div class="caption">Matin urbain</div><!-- AJOUT -->
+    </div><!-- AJOUT -->
+    <div class="gallery-item"><!-- AJOUT -->
+      <img src="À la volée.jfif" alt="À la volée" class="fade-in-up"><!-- AJOUT -->
+      <div class="caption">À la volée</div><!-- AJOUT -->
+    </div><!-- AJOUT -->
   </section>
   
   <!-- Footer avec coordonnées -->
