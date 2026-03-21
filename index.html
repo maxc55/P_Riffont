@@ -45,6 +45,15 @@
     footer{padding:40px;text-align:center;background:var(--primary-color);color:var(--secondary-color);font-size:.9rem}
     .fade-in-up{opacity:0;transform:translateY(20px);transition:opacity 1.5s ease-out,transform 1.5s ease-out}
     .fade-in-up.visible{opacity:1;transform:translateY(0)}
+    @media (max-width: 768px) {
+      header.small .logo-container {
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      header.small .nav-container {
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
